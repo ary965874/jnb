@@ -1,0 +1,5 @@
+Flask==2.3.3
+telethon==1.28.5
+requests==2.31.0
+asyncio==3.4.3
+python-dotenv==1.0.0

