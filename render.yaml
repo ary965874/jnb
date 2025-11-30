@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: telegram-session-generator
+    env: python
+    plan: free
+    buildCommand: |
+      python3.12 -m venv .venv
+      source .venv/bin/activate
+      pip install --upgrade pip
+      pip install -r requirements.txt
+    startCommand: |
+      source .venv/bin/activate
+      gunicorn app:app
+    pythonVersion: "3.12"
